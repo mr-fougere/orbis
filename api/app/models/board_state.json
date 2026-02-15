@@ -1,0 +1,6 @@
+[
+  { "position": { "x": 4, "y": 4 }, "side": "recto" },
+  { "position": { "x": 5, "y": 4 }, "side": "verso" },
+  { "position": { "x": 4, "y": 5 }, "side": "recto" },
+  { "position": { "x": 5, "y": 5 }, "side": "verso" }
+]

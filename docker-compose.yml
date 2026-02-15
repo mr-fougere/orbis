@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: othello_db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    container_name: othello_api
+    command: bash -c "bundle install && rails db:prepare && rails server -b 0.0.0.0"
+    volumes:
+      - ./api:/rails
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - ./api/.env
+
+  react:
+    build:
+      context: ./react
+      dockerfile: Dockerfile.dev
+    container_name: othello_front
+    volumes:
+      - ./react:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    env_file:
+      - ./react/.env
+
+volumes:
+  postgres_data:

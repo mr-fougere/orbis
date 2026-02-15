@@ -1,0 +1,11 @@
+FROM ruby:4.0.1
+
+WORKDIR /rails
+
+RUN apt-get update -qq && \
+    apt-get install -y build-essential libpq-dev nodejs postgresql-client
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+EXPOSE 3000

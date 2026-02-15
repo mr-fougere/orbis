@@ -1,0 +1,48 @@
+############################
+# ENV FILES
+############################
+.env
+api/.env
+react/.env
+
+############################
+# RAILS
+############################
+
+api/log/*
+api/tmp/*
+api/storage/*
+api/node_modules
+api/vendor/bundle
+api/.bundle
+api/.byebug_history
+api/logfile
+############################
+# REACT
+############################
+react/node_modules
+react/dist
+react/.vite
+react/.cache
+
+############################
+# PNPM
+############################
+react/pnpm-debug.log*
+
+############################
+# DOCKER
+############################
+docker-compose.override.yml
+
+############################
+# OS
+############################
+.DS_Store
+Thumbs.db
+
+############################
+# IDE
+############################
+.vscode/
+.idea/
