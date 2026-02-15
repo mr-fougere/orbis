@@ -5,7 +5,7 @@ module Api
       before_action :authorize_request, only: [:profile]
 
       def register
-        player = Player.new(username: params[:username])
+        player = Player.new(player_params)
         if player.save
           token = ::JsonWebToken.encode(player_id: player.id)
           render json: { token: token, player: player.resume }, status: :created
@@ -26,6 +26,10 @@ module Api
         decoded = ::JsonWebToken.decode(header)
         @current_player = Player.find_by(id: decoded[:player_id]) if decoded
         render json: { errors: ['Not Authorized'] }, status: :unauthorized unless @current_player
+      end
+
+      def player_params
+        params.require(:player).permit(:username) 
       end
     end
   end

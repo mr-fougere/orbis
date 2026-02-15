@@ -4,8 +4,6 @@ class Player < ApplicationRecord
 
   has_many :game_players
 
-  attr_accessor :username
-
   def resume 
     { username: }
   end
