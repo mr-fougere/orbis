@@ -8,7 +8,7 @@ module Api
         player = Player.new(player_params)
         if player.save
           token = ::JsonWebToken.encode(player_id: player.id)
-          render json: { token: token, player: player.resume }, status: :created
+          render json: { token: token, username: player.username }, status: :created
         else
           render json: { errors: player.errors.full_messages }, status: :unprocessable_entity
         end
