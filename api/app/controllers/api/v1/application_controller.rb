@@ -7,9 +7,12 @@ module Api
 
       def authenticate_player!
         token = bearer_token
+        p token
+
         return render_unauthorized unless token
 
         payload = JsonWebToken.decode(token)
+
         return render_unauthorized unless payload
 
         @current_player = Player.find_by(id: payload[:player_id])

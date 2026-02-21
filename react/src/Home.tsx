@@ -1,18 +1,16 @@
 import './App.css'
 import { PlayerRegisterForm } from './player/RegisterForm'
 import { useAuthPlayer } from './components/AuthProvider'
-import { PlayerSummary } from './player/Summary'
+import { CreateGameForm } from './games/CreateGameForm'
 
-function App() {
-
+export function Home() {
   const { isLogged} = useAuthPlayer()
   return (
     <>
       <h1>Orbis</h1>
-      {isLogged ?<PlayerSummary/> :  <PlayerRegisterForm/>}
+      {isLogged ?<CreateGameForm/> :  <PlayerRegisterForm/>}
      
     </>
   )
 }
 
-export default App

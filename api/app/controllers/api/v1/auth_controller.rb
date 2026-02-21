@@ -24,6 +24,7 @@ module Api
         header = request.headers['Authorization']
         header = header.split(' ').last if header
         decoded = ::JsonWebToken.decode(header)
+        p decoded
         @current_player = Player.find_by(id: decoded[:player_id]) if decoded
         render json: { errors: ['Not Authorized'] }, status: :unauthorized unless @current_player
       end

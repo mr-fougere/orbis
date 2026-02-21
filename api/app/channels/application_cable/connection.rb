@@ -9,15 +9,21 @@ module ApplicationCable
     private
 
     def find_verified_player
-      auth_header = request.headers["Authorization"]
-      reject_unauthorized_connection unless auth_header
+      # 🔑 On récupère le token depuis l'URL
+      token = request.params[:token].presence
+      p token
+      reject_unauthorized_connection unless token
 
-      token = auth_header.split(" ").last
       payload = JsonWebToken.decode(token)
       reject_unauthorized_connection unless payload
 
-      Player.find_by(id: payload["player_id"]) ||
-        reject_unauthorized_connection
+      p payload
+      player = Player.find_by(id: payload["player_id"])
+      reject_unauthorized_connection unless player
+
+      player
+    rescue JWT::DecodeError, JWT::ExpiredSignature
+      reject_unauthorized_connection
     end
   end
 end

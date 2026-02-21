@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get '/profile', to: 'auth#profile'
 
       resources :games, only: [:create ]
+      resources :game_modes, only: [:index ]
     end
   end
 end

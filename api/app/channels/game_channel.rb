@@ -25,14 +25,14 @@ class GameChannel < ApplicationCable::Channel
 
   def get_game_state
     state = OthelloEngine.new(game: @game).get_game_state
-    GameChannel.broadcast_to(@game, { event: 'get_game_state', data: state })
+    GameChannel.broadcast_to(@game, { event: 'game_state', data: state })
   end
 
   def put_disks(data)
     engine = OthelloEngine.new(game: @game)
     success = engine.put_disk(x: data['x'], y: data['y'])
     if success
-      GameChannel.broadcast_to(@game, { event: 'update_game_state', data: engine.update_game_state })
+      GameChannel.broadcast_to(@game, { event: 'game_state', data: engine.update_game_state })
     end
   end
 
